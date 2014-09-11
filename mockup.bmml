@@ -282,30 +282,62 @@
             <text>Finalizar%20rodada</text>
           </controlProperties>
         </control>
+        <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="660" y="25" w="-1" h="-1" measuredW="60" measuredH="21" zOrder="44" locked="false" isInGroup="87">
+          <controlProperties>
+            <align>center</align>
+            <text>Estourou%3F</text>
+          </controlProperties>
+        </control>
+        <control controlID="45" controlTypeID="com.balsamiq.mockups::Icon" x="678" y="60" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="45" locked="false" isInGroup="87">
+          <controlProperties>
+            <icon>Alert2Icon%7Csmall</icon>
+          </controlProperties>
+        </control>
+        <control controlID="46" controlTypeID="com.balsamiq.mockups::Icon" x="678" y="171" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="46" locked="false" isInGroup="87">
+          <controlProperties>
+            <icon>Alert2Icon%7Csmall</icon>
+          </controlProperties>
+        </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="88" controlTypeID="com.balsamiq.mockups::FieldSet" x="337" y="186" w="811" h="107" measuredW="200" measuredH="170" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::FieldSet" x="337" y="214" w="811" h="79" measuredW="200" measuredH="170" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Mesa</text>
       </controlProperties>
     </control>
-    <control controlID="89" controlTypeID="com.balsamiq.mockups::Label" x="349" y="207" w="-1" h="-1" measuredW="83" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Valor%20da%20ficha%3A</text>
-      </controlProperties>
+    <control controlID="98" controlTypeID="__group__" x="360" y="238" w="764" h="40" measuredW="764" measuredH="40" zOrder="5" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="4" w="-1" h="-1" measuredW="83" measuredH="21" zOrder="0" locked="false" isInGroup="98">
+          <controlProperties>
+            <text>Valor%20da%20ficha%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="206" y="4" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="1" locked="false" isInGroup="98">
+          <controlProperties>
+            <text>L%E1grima%20%28fichas%29%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="433" y="4" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="2" locked="false" isInGroup="98">
+          <controlProperties>
+            <text>Estourada%20%28fichas%29%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="98" y="1" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="3" locked="false" isInGroup="98"/>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="320" y="1" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="4" locked="false" isInGroup="98"/>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::TextInput" x="559" y="4" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="5" locked="false" isInGroup="98"/>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="669" y="0" w="-1" h="-1" measuredW="54" measuredH="28" zOrder="6" locked="false" isInGroup="98">
+          <controlProperties>
+            <size>20</size>
+            <text>Bol%E3o%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="732" y="0" w="-1" h="-1" measuredW="32" measuredH="40" zOrder="7" locked="false" isInGroup="98">
+          <controlProperties>
+            <size>32</size>
+            <text>18</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
     </control>
-    <control controlID="90" controlTypeID="com.balsamiq.mockups::Label" x="349" y="230" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>L%E1grima%20%28fichas%29%3A</text>
-      </controlProperties>
-    </control>
-    <control controlID="91" controlTypeID="com.balsamiq.mockups::Label" x="349" y="259" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Estourada%20%28fichas%29%3A</text>
-      </controlProperties>
-    </control>
-    <control controlID="92" controlTypeID="com.balsamiq.mockups::TextInput" x="475" y="204" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="8" locked="false" isInGroup="-1"/>
-    <control controlID="94" controlTypeID="com.balsamiq.mockups::TextInput" x="475" y="230" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="9" locked="false" isInGroup="-1"/>
-    <control controlID="95" controlTypeID="com.balsamiq.mockups::TextInput" x="475" y="259" w="-1" h="-1" measuredW="79" measuredH="26" zOrder="10" locked="false" isInGroup="-1"/>
   </controls>
 </mockup>

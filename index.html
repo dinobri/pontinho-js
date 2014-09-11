@@ -1,28 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pontinho JS</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pontinho JS</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/pontinho.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            <fieldset>
+                <legend>Mesa</legend>
+                <div class="row">
+                    <div class="form-group col-sm-3 col-xs-6">
+                        <label for="ficha">Valor da ficha:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>
+                            <input name="ficha" class="form-control input-lg" type="number" step="0.1" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 col-xs-6">
+                        <label for="lagrima">Lágrima (fichas):</label>
+                        <input name="lagrima" class="form-control input-lg" value="1" type="number" step="1" min="0">
+                    </div>
+                    <div class="form-group col-sm-3 col-xs-6">
+                        <label for="estourada">Estourada (fichas):</label>
+                        <input name="estourada" class="form-control input-lg" value="2" type="number" step="1" min="0">
+                    </div>
+                    <div class="form-group col-sm-3 col-xs-6">
+                        <label for="bolao">Bolão (fichas):</label>
+                        <span style="font-size: 4em; vertical-align: top;">18</span>
+                    </div>
+                </div>
+            </fieldset>
 
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+            <fieldset>
+                <legend>Jogadores</legend>
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-xs-6 col-sm-4 col-md-3"><label>Nome</label></div>
+                    <div class="col-xs-6 col-sm-2 col-md-1"><label>Saldo (R$)</label></div>
+                    <div class="col-xs-12 col-sm-6 col-md-4"><label>Pontuação na rodada</label></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontuação geral</label></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontos para estourar</label></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Estourou?</label></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Remover jogador</label></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3">Jogador 1</div>
+                    <div class="col-xs-6 col-sm-2 col-md-1">0,00</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&lt;&lt;</button>
+                                <button type="button" class="btn btn-default">&lt;</button>
+                            </div>
+                            <input value="0" class="form-control">                            
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+                                <button type="button" class="btn btn-default">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">43</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">57</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3">Jogador 1</div>
+                    <div class="col-xs-6 col-sm-2 col-md-1">0,00</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&lt;&lt;</button>
+                                <button type="button" class="btn btn-default">&lt;</button>
+                            </div>
+                            <input value="0" class="form-control">                            
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+                                <button type="button" class="btn btn-default">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">43</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">57</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3">Jogador 1</div>
+                    <div class="col-xs-6 col-sm-2 col-md-1">0,00</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&lt;&lt;</button>
+                                <button type="button" class="btn btn-default">&lt;</button>
+                            </div>
+                            <input value="0" class="form-control">                            
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+                                <button type="button" class="btn btn-default">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">43</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">57</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3">Jogador 1</div>
+                    <div class="col-xs-6 col-sm-2 col-md-1">0,00</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&lt;&lt;</button>
+                                <button type="button" class="btn btn-default">&lt;</button>
+                            </div>
+                            <input value="0" class="form-control">                            
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+                                <button type="button" class="btn btn-default">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">43</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">57</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3">Jogador 1</div>
+                    <div class="col-xs-6 col-sm-2 col-md-1">0,00</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&lt;&lt;</button>
+                                <button type="button" class="btn btn-default">&lt;</button>
+                            </div>
+                            <input value="0" class="form-control">                            
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+                                <button type="button" class="btn btn-default">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">43</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1">57</div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
+                </div>
+            </fieldset>
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
 </html>
