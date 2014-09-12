@@ -4,6 +4,20 @@ function Jogador(nome, saldo){
 	this.saldo = saldo;
 	this.pontRodada = 0;
 	this.pontGeral = 0;
+
+	/*Métodos*/
+	this.atualizaPontuacao = function(valor){
+		if(valor<0){
+			return false;
+		} else {
+			this.pontGeral += valor;
+			if(this.pontGeral > 100){
+				return 100;
+			} else {
+				return this.pontGeral;
+			}
+		}
+	};
 }
 
 /* ========================================= UTIL ========================================= */
@@ -18,6 +32,20 @@ jogadores.push(new Jogador("Amet Ipsum", 2));
 /* ========================================= CONTROLE ========================================= */
 var app = angular.module('pontinho', []);
 
-app.controller('JogadoresController', function(){
-	this.jogadores = jogadores;
+app.controller('JogoController', function(){
+
 });
+
+app.controller('MesaController', function(){
+	this.jogadores = jogadores;
+
+	this.alteraPontuacao = function(jogador, valor){
+		var pontuacaoFinal = jogador.pontRodada + valor;
+		if(pontuacaoFinal > 100 || pontuacaoFinal < 0){
+			return false;
+		} else {
+			jogador.pontRodada += valor;
+		}
+	};
+});
+

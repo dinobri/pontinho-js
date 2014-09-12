@@ -21,64 +21,68 @@
     </head>
     <body>
         <div class="container">
-            <fieldset>
-                <legend>Mesa</legend>
-                <div class="row">
-                    <div class="form-group col-sm-3 col-xs-6">
-                        <label for="ficha">Valor da ficha:</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">R$</div>
-                            <input name="ficha" class="form-control input-lg" type="number" step="0.1" min="0">
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-3 col-xs-6">
-                        <label for="lagrima">Lágrima (fichas):</label>
-                        <input name="lagrima" class="form-control input-lg" value="1" type="number" step="1" min="0">
-                    </div>
-                    <div class="form-group col-sm-3 col-xs-6">
-                        <label for="estourada">Estourada (fichas):</label>
-                        <input name="estourada" class="form-control input-lg" value="2" type="number" step="1" min="0">
-                    </div>
-                    <div class="form-group col-sm-3 col-xs-6">
-                        <label for="bolao">Bolão (fichas):</label>
-                        <span style="font-size: 4em; vertical-align: top;">18</span>
-                    </div>
-                </div>
-            </fieldset>
 
-            <fieldset ng-controller="JogadoresController as jogadores">
-                <legend>Jogadores</legend>
-                <div class="row hidden-xs hidden-sm">
-                    <div class="col-xs-6 col-sm-4 col-md-3"><label>Nome</label></div>
-                    <div class="col-xs-6 col-sm-2 col-md-1"><label>Saldo (R$)</label></div>
-                    <div class="col-xs-12 col-sm-6 col-md-4"><label>Pontuação na rodada</label></div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontuação geral</label></div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontos para estourar</label></div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Estourou?</label></div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><label>Remover jogador</label></div>
-                </div>
-                <div class="row" ng-repeat="jogador in jogadores.jogadores">
-                    <div class="col-xs-6 col-sm-4 col-md-3">{{jogador.nome}}</div>
-                    <div class="col-xs-6 col-sm-2 col-md-1">{{jogador.saldo | currency}}</div>
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default">&lt;&lt;</button>
-                                <button type="button" class="btn btn-default">&lt;</button>
-                            </div>
-                            <input value="{{jogador.pontRodada}}" class="form-control">                            
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default">&gt;</button>
-                                <button type="button" class="btn btn-default">&gt;&gt;</button>
+            <div class="box">
+                <fieldset>
+                    <legend>Jogo</legend>
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="ficha">Valor da ficha:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">R$</div>
+                                <input name="ficha" class="form-control input-lg" type="number" step="0.1" min="0">
                             </div>
                         </div>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="lagrima">Lágrima (fichas):</label>
+                            <input name="lagrima" class="form-control input-lg" value="1" type="number" step="1" min="0">
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="estourada">Estourada (fichas):</label>
+                            <input name="estourada" class="form-control input-lg" value="2" type="number" step="1" min="0">
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <label for="bolao">Bolão (fichas):</label>
+                            <span style="font-size: 4em; vertical-align: top;">18</span>
+                        </div>
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-1">{{jogador.pontGeral}}</div>
-                    <div class="col-xs-6 col-sm-3 col-md-1">{{100 - jogador.pontGeral}}</div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
-                    <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></div>
-                </div>
-            </fieldset>
+                </fieldset>
+            </div>
+            <div class="box">
+                <fieldset ng-controller="MesaController as mesaCtrl">
+                    <legend>Mesa</legend>
+                    <div class="row hidden-xs hidden-sm">
+                        <div class="col-xs-6 col-sm-4 col-md-3"><label>Nome</label></div>
+                        <div class="col-xs-6 col-sm-2 col-md-1"><label>Saldo (R$)</label></div>
+                        <div class="col-xs-12 col-sm-6 col-md-4"><label>Pontuação na rodada</label></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontuação geral</label></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><label>Pontos para estourar</label></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><label>Estourou?</label></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><label>Remover jogador</label></div>
+                    </div>
+                    <div class="row player" ng-repeat="jogador in mesaCtrl.jogadores">
+                        <div class="col-xs-6 col-sm-4 col-md-3">{{jogador.nome}}</div>
+                        <div class="col-xs-6 col-sm-2 col-md-1">{{jogador.saldo | currency}}</div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, -5)">&lt;&lt;</button>
+                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, -1)">&lt;</button>
+                                </div>
+                                <input value="{{jogador.pontRodada}}" class="form-control">                            
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, 1)">&gt;</button>
+                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, 5)">&gt;&gt;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-1">{{jogador.pontGeral}}</div>
+                        <div class="col-xs-6 col-sm-3 col-md-1">{{100 - jogador.pontGeral}}</div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></div>
+                    </div>
+                </fieldset>
+            </div>    
         </div>
 
 
