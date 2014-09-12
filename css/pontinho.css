@@ -1,0 +1,9 @@
+body{
+	background-image: url('../img/blue-felt.png');
+}
+
+fieldset{
+	padding: 20px;
+	background-color: rgba(255,255,255,0.7);
+	text-align: center;
+}
