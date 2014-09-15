@@ -32,12 +32,10 @@ jogadores.push(new Jogador("Amet Ipsum", 2));
 /* ========================================= CONTROLE ========================================= */
 var app = angular.module('pontinho', []);
 
-app.controller('JogoController', function(){
-
-});
-
 app.controller('MesaController', function(){
 	this.jogadores = jogadores;
+
+	this.novoJogador = new Jogador();
 
 	this.alteraPontuacao = function(jogador, valor){
 		var pontuacaoFinal = jogador.pontRodada + valor;
@@ -47,5 +45,19 @@ app.controller('MesaController', function(){
 			jogador.pontRodada += valor;
 		}
 	};
-});
 
+	this.adicionaJogador = function(){
+		this.jogadores.push(this.novoJogador);
+		this.novoJogador = new Jogador();
+	};
+
+	this.removeJogador = function(jogador){
+		var index = this.jogadores.indexOf(jogador);
+		console.log(index);
+		if(index >= 0){
+			this.jogadores.splice(index, 1);
+		}
+
+
+	};
+});
