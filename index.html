@@ -10,6 +10,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
         <link href="css/pontinho.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,6 +19,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script src="js/angular.min.js"></script>
+        <script src="js/angular.animate.min.js"></script>
         <script src="js/pontinho.js"></script>
     </head>
     <body ng-controller="MesaController as mesaCtrl">
@@ -47,6 +49,14 @@
                             <span style="font-size: 4em; vertical-align: top;">18</span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-xs-6">
+                            <button type="button" class="btn btn-default btn-lg btn-block">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                Nova rodada
+                            </button>   
+                        </div>
+                    </div>
                 </fieldset>
             </div>
 
@@ -64,7 +74,7 @@
                     </div>
                     
                     <!-- Player Row -->
-                    <div class="row player" ng-repeat="jogador in mesaCtrl.jogadores">
+                    <div class="row player" ng-repeat="jogador in mesaCtrl.jogadores" ng-animate="'animate'">
                         <div class="col-xs-6 col-sm-4 col-md-3">{{jogador.nome}}</div>
                         <div class="col-xs-6 col-sm-2 col-md-1">{{jogador.saldo | currency}}</div>
                         <div class="col-xs-12 col-sm-6 col-md-4">
@@ -90,37 +100,21 @@
                         </div>
                     </div>
                     <!--END Player Row -->
-
-                    <div class="row">
+                    <hr/>
+                    <div class="row" ng-hide="mesaCtrl.isAdicionando">
                         <div class="col-sm-3">
-                            <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target=".modal-novo-jogador">
+                            <button type="button" class="btn btn-default btn-lg btn-block" ng-click="mesaCtrl.isAdicionando = true">
                                 <span class="glyphicon glyphicon-plus"></span> 
                                 <span class="glyphicon glyphicon-user"></span> 
                                 Adicionar jogador
                             </button>
                         </div>
-                        <div class="col-sm-3 col-sm-offset-6">
-                            <button type="button" class="btn btn-default btn-lg btn-block">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                Nova rodada
-                            </button>                            
-                        </div>
                     </div>
-                </fieldset>
-            </div>    
-        </div>
 
-        <!-- Modal novo jogador -->
-        <div class="modal fade modal-novo-jogador" tabindex="-1" role="dialog" aria-labelledby="modalNovoJogador" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Adicionar jogador</h4>
-                        </div>
-                    <form role="form" name="novoJogadorForm" ng-submit="mesaCtrl.adicionaJogador()">
-                        <div class="modal-body">
+                    <form role="form" name="novoJogadorForm" ng-submit="mesaCtrl.adicionaJogador()" ng-show="mesaCtrl.isAdicionando">
+                        <h3>Novo jogador</h3>
+                        <div id="novo-jogador" class="row" >
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="novo-nome" class="sr-only">Nome</label>
                                     <div class="input-group">
@@ -128,23 +122,24 @@
                                         <input id="novo-nome" class="form-control" placeholder="Nome" ng-model="mesaCtrl.novoJogador.nome">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="novo-saldo" class="sr-only">Saldo</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">R$</div>
                                         <input id="novo-saldo" class="form-control" placeholder="Saldo" ng-model="mesaCtrl.novoJogador.saldo">
                                     </div>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> -->
-                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Adicionar</button>
+                                </div>                                
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-success btn-block">Adicionar</button>
+                            </div>
                         </div>
                     </form>
-                </div>
-            </div>
+                </fieldset>
+            </div>    
         </div>
-        <!-- END Modal novo jogador -->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

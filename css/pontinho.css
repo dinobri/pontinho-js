@@ -1,5 +1,5 @@
 body{
-	background-image: url('../img/green-felt.png');
+	background-image: url('../img/blue-felt.png');
 }
 
 fieldset{
@@ -21,4 +21,16 @@ fieldset{
 }
 .player:nth-child(2n+1){
 	background-color: rgba(255,255,255,0.2);
+}
+
+
+/* Animation */
+.player.animate-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.player.animate-enter.player.animate-enter-active {
+	opacity: 1;
 }

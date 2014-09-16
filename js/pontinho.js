@@ -30,12 +30,14 @@ jogadores.push(new Jogador("Amet Ipsum", 2));
 
 
 /* ========================================= CONTROLE ========================================= */
-var app = angular.module('pontinho', []);
+var app = angular.module('pontinho', ['ngAnimate']);
 
 app.controller('MesaController', function(){
 	this.jogadores = jogadores;
 
 	this.novoJogador = new Jogador();
+
+	this.isAdicionando = false;
 
 	this.alteraPontuacao = function(jogador, valor){
 		var pontuacaoFinal = jogador.pontRodada + valor;
@@ -49,6 +51,8 @@ app.controller('MesaController', function(){
 	this.adicionaJogador = function(){
 		this.jogadores.push(this.novoJogador);
 		this.novoJogador = new Jogador();
+
+		this.isAdicionando = false;
 	};
 
 	this.removeJogador = function(jogador){
