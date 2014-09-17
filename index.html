@@ -9,8 +9,8 @@
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-        <link href="css/pontinho.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet">
+        <link href="css/pontinho.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,7 +25,7 @@
     <body ng-controller="MesaController as mesaCtrl">
         <div class="container">
 
-            <div class="box">
+            <div class="box red">
                 <fieldset>
                     <legend>Jogo</legend>
                     <div class="row">
@@ -60,7 +60,7 @@
                 </fieldset>
             </div>
 
-            <div class="box">
+            <div class="box black">
                 <fieldset>
                     <legend>Mesa</legend>
                     <div class="row hidden-xs hidden-sm">
@@ -74,21 +74,23 @@
                     </div>
                     
                     <!-- Player Row -->
-                    <div class="row player" ng-repeat="jogador in mesaCtrl.jogadores" ng-animate="'animate'">
+                    <div class="row player animated" ng-repeat="jogador in mesaCtrl.jogadores" ng-animate="'animate'">
                         <div class="col-xs-6 col-sm-4 col-md-3">{{jogador.nome}}</div>
                         <div class="col-xs-6 col-sm-2 col-md-1">{{jogador.saldo | currency}}</div>
                         <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, -5)">&lt;&lt;</button>
-                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, -1)">&lt;</button>
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, -1)">&lt;</button>
+                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, -5)">&lt;&lt;</button>
                                 </div>
-                                <input value="{{jogador.pontRodada}}" class="form-control">                            
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, 1)">&gt;</button>
-                                    <button type="button" class="btn btn-default" ng-click="mesaCtrl.alteraPontuacao(jogador, 5)">&gt;&gt;</button>
+                                <div class="col-xs-2" style="padding: 0;">
+                                    <input value="{{jogador.pontRodada}}" class="form-control input-lg" style="text-align: center;"> 
                                 </div>
-                            </div>
+                                <div class="col-xs-5">
+                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, 1)">&gt;</button>
+                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, 5)">&gt;&gt;</button>
+                                </div>
+                            </div>                                                       
                         </div>
                         <div class="col-xs-6 col-sm-3 col-md-1">{{jogador.pontGeral}}</div>
                         <div class="col-xs-6 col-sm-3 col-md-1">{{100 - jogador.pontGeral}}</div>
@@ -102,7 +104,7 @@
                     <!--END Player Row -->
                     <hr/>
                     <div class="row" ng-hide="mesaCtrl.isAdicionando">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <button type="button" class="btn btn-default btn-lg btn-block" ng-click="mesaCtrl.isAdicionando = true">
                                 <span class="glyphicon glyphicon-plus"></span> 
                                 <span class="glyphicon glyphicon-user"></span> 
@@ -111,7 +113,7 @@
                         </div>
                     </div>
 
-                    <form role="form" name="novoJogadorForm" ng-submit="mesaCtrl.adicionaJogador()" ng-show="mesaCtrl.isAdicionando">
+                    <form id="formNovoJogador" role="form" ng-submit="mesaCtrl.adicionaJogador()" ng-show="mesaCtrl.isAdicionando">
                         <h3>Novo jogador</h3>
                         <div id="novo-jogador" class="row" >
                             <div class="col-sm-4">

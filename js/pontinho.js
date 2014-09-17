@@ -25,8 +25,6 @@ var jogadores = [];
 jogadores.push(new Jogador("Lorem Dolor", 2));
 jogadores.push(new Jogador("Ipsum Sit", 5));
 jogadores.push(new Jogador("Dolor Amet", 3));
-jogadores.push(new Jogador("Sit Lorem", 2));
-jogadores.push(new Jogador("Amet Ipsum", 2));
 
 
 /* ========================================= CONTROLE ========================================= */
@@ -49,10 +47,14 @@ app.controller('MesaController', function(){
 	};
 
 	this.adicionaJogador = function(){
-		this.jogadores.push(this.novoJogador);
-		this.novoJogador = new Jogador();
+		if(this.novoJogador.nome && this.novoJogador.saldo){
+			this.jogadores.push(this.novoJogador);
+			this.novoJogador = new Jogador();
 
-		this.isAdicionando = false;
+			this.isAdicionando = false;
+		} else {
+			this.isAdicionando = false;			
+		}
 	};
 
 	this.removeJogador = function(jogador){

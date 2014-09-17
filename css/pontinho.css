@@ -1,5 +1,5 @@
 body{
-	background-image: url('../img/blue-felt.png');
+	background-image: url('../img/green-felt.png');
 }
 
 fieldset{
@@ -9,28 +9,61 @@ fieldset{
 
 .box{
 	margin: 20px 0;
-	background-color: rgba(255,255,255,0.5);
-	border-radius: 20px;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	border-top: 6px solid;
+
+	box-shadow: 0 6px 6px -3px rgba(0,0,0,0.5);
 }
+
+.box.black{border-color: #222;}
+.box.red{border-color: #DF1E1E}
 
 .player{
 	padding: 8px 0;
 }
 .player:nth-child(2n){
-	background-color: rgba(255,255,255,0.5);
+	background-color: rgba(0,0,0,0.025);
 }
 .player:nth-child(2n+1){
-	background-color: rgba(255,255,255,0.2);
+	background-color: rgba(0,0,0,0.05);
 }
+
+.btn.circle{
+	width: 46px;
+	height: 46px;
+	border-radius: 23px;
+}
+.btn.circle:hover{}
+.btn.circle:active{}
 
 
 /* Animation */
-.player.animate-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
+/*.player{
+	-webkit-transition: all 0.25s;
+	transition: all 0.25s;
+}
+
+.player.ng-enter {
 	opacity: 0;
 }
  
-.player.animate-enter.player.animate-enter-active {
+.player.ng-enter-active {
 	opacity: 1;
+}
+
+.player.ng-leave {
+	opacity: 1;
+}
+ 
+.player.ng-leave-active {
+	opacity: 0;
+}*/
+.player.ng-enter{
+	-webkit-animation: fadeInUp 0.5s;
+    animation: fadeInUp 0.5s;
+}
+.player.ng-leave{
+	-webkit-animation: flipOutX 0.5s;
+    animation: flipOutX 0.5s;
 }
