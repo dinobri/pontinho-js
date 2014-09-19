@@ -1,69 +1,96 @@
 body{
-	background-image: url('../img/green-felt.png');
+    background-image: url('../img/green-felt.png');
 }
 
 fieldset{
-	padding: 20px;
-	text-align: center;
+    padding: 20px;
+    text-align: center;
 }
 
 .box{
-	margin: 20px 0;
-	border-radius: 6px;
-	background-color: #f9f9f9;
-	border-top: 6px solid;
+    margin: 20px 0;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    border-top: 6px solid;
 
-	box-shadow: 0 6px 6px -3px rgba(0,0,0,0.5);
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,0.5);
 }
 
 .box.black{border-color: #222;}
 .box.red{border-color: #DF1E1E}
 
 .player{
-	padding: 8px 0;
+    padding: 8px 0;
 }
 .player:nth-child(2n){
-	background-color: rgba(0,0,0,0.025);
+    background-color: rgba(0,0,0,0.025);
 }
 .player:nth-child(2n+1){
-	background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.05);
+}
+
+.pont-rodada{
+    width: 100%;
+    font-size: 2em;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
 }
 
 .btn.circle{
-	width: 46px;
-	height: 46px;
-	border-radius: 23px;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
 }
 .btn.circle:hover{}
 .btn.circle:active{}
 
+.estourada-icon{
+    font-size: 1.5em;
+}
+
 
 /* Animation */
-/*.player{
-	-webkit-transition: all 0.25s;
-	transition: all 0.25s;
-}
-
-.player.ng-enter {
-	opacity: 0;
-}
- 
-.player.ng-enter-active {
-	opacity: 1;
-}
-
-.player.ng-leave {
-	opacity: 1;
-}
- 
-.player.ng-leave-active {
-	opacity: 0;
-}*/
 .player.ng-enter{
-	-webkit-animation: fadeInUp 0.5s;
+    -webkit-animation: fadeInUp 0.5s;
+    -moz-animation: fadeInUp 0.5s;
+    -o-animation: fadeInUp 0.5s;
     animation: fadeInUp 0.5s;
 }
 .player.ng-leave{
-	-webkit-animation: flipOutX 0.5s;
+    -webkit-animation: flipOutX 0.5s;
+    -moz-animation: flipOutX 0.5s;
+    -o-animation: flipOutX 0.5s;
     animation: flipOutX 0.5s;
+}
+
+.estourada-icon.ng-hide-remove{
+    -webkit-animation: bounceIn 1s;
+    -moz-animation: bounceIn 1s;
+    -o-animation: bounceIn 1s;
+    animation: bounceIn 1s;
+}
+.estourada-icon.ng-hide-add{
+    -webkit-animation: bounceOut 0.4s;
+    -moz-animation: bounceOut 0.4s;
+    -o-animation: bounceOut 0.4s;
+    animation: bounceOut 0.4s;
+}
+
+#formNovoJogador.ng-hide-remove, #btnNovoJogador.ng-hide-remove{
+    -webkit-animation: fadeIn 0.3s;
+    -moz-animation: fadeIn 0.3s;
+    -o-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+#formNovoJogador.ng-hide-add, #btnNovoJogador.ng-hide-add{
+    -webkit-animation: fadeOut 0.3s;
+    -moz-animation: fadeOut 0.3s;
+    -o-animation: fadeOut 0.3s;
+    animation: fadeOut 0.3s;
+}
+
+#alerts{
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    width: auto;
 }

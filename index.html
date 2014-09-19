@@ -24,6 +24,9 @@
     </head>
     <body ng-controller="MesaController as mesaCtrl">
         <div class="container">
+            <div class="page-header">
+                <h1>Pontinho-JS</h1>
+            </div>
 
             <div class="box red">
                 <fieldset>
@@ -51,7 +54,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6">
-                            <button type="button" class="btn btn-default btn-lg btn-block">
+                            <button type="button" class="btn btn-default btn-lg btn-block" ng-click="mesaCtrl.iniciaRodada()">
                                 <span class="glyphicon glyphicon-ok"></span>
                                 Nova rodada
                             </button>   
@@ -74,17 +77,18 @@
                     </div>
                     
                     <!-- Player Row -->
-                    <div class="row player animated" ng-repeat="jogador in mesaCtrl.jogadores" ng-animate="'animate'">
+                    <div class="row player animated" ng-repeat="jogador in mesaCtrl.jogadores">
                         <div class="col-xs-6 col-sm-4 col-md-3">{{jogador.nome}}</div>
                         <div class="col-xs-6 col-sm-2 col-md-1">{{jogador.saldo | currency}}</div>
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, -1)">&lt;</button>
                                     <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, -5)">&lt;&lt;</button>
+                                    <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, -1)">&lt;</button>
                                 </div>
                                 <div class="col-xs-2" style="padding: 0;">
-                                    <input value="{{jogador.pontRodada}}" class="form-control input-lg" style="text-align: center;"> 
+                                    <p class="pont-rodada">{{jogador.pontRodada}}</p>
+                                    <!-- <input value="{{jogador.pontRodada}}" class="form-control input-lg pont-rodada" style="text-align: center;">  -->
                                 </div>
                                 <div class="col-xs-5">
                                     <button type="button" class="btn btn-default circle" ng-click="mesaCtrl.alteraPontuacao(jogador, 1)">&gt;</button>
@@ -94,7 +98,7 @@
                         </div>
                         <div class="col-xs-6 col-sm-3 col-md-1">{{jogador.pontGeral}}</div>
                         <div class="col-xs-6 col-sm-3 col-md-1">{{100 - jogador.pontGeral}}</div>
-                        <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire"></span></div>
+                        <div class="col-xs-6 col-sm-3 col-md-1"><span class="glyphicon glyphicon-fire estourada-icon" ng-show="jogador.pontRodada + jogador.pontGeral >= 100"></span></div>
                         <div class="col-xs-6 col-sm-3 col-md-1">
                             <button type="button" class="btn btn-danger btn-xs" ng-click="mesaCtrl.removeJogador(jogador)">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -103,9 +107,42 @@
                     </div>
                     <!--END Player Row -->
                     <hr/>
-                    <div class="row" ng-hide="mesaCtrl.isAdicionando">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <form id="formNovoJogador" role="form" ng-submit="mesaCtrl.adicionaJogador()" ng-show="mesaCtrl.isAdicionando">
+                                <h3>Novo jogador</h3>
+                                <div id="novo-jogador" class="row" >
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="novo-nome" class="sr-only">Nome</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span> </div>
+                                                <input id="novo-nome" class="form-control" placeholder="Nome" ng-model="mesaCtrl.novoJogador.nome">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="novo-saldo" class="sr-only">Saldo</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">R$</div>
+                                                <input id="novo-saldo" class="form-control" placeholder="Saldo" ng-model="mesaCtrl.novoJogador.saldo">
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                    <div class="col-xs-6 col-sm-2">
+                                        <button type="button" class="btn btn-danger btn-block" ng-click="mesaCtrl.cancelaAdicao()">Cancelar</button>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-2">
+                                        <button type="submit" class="btn btn-success btn-block">Adicionar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-default btn-lg btn-block" ng-click="mesaCtrl.isAdicionando = true">
+                            <button id="btnNovoJogador" type="button" class="btn btn-default btn-lg btn-block" 
+                                ng-click="mesaCtrl.habilitaFormNovoJogador()"
+                                ng-hide="mesaCtrl.isAdicionando">
                                 <span class="glyphicon glyphicon-plus"></span> 
                                 <span class="glyphicon glyphicon-user"></span> 
                                 Adicionar jogador
@@ -113,34 +150,16 @@
                         </div>
                     </div>
 
-                    <form id="formNovoJogador" role="form" ng-submit="mesaCtrl.adicionaJogador()" ng-show="mesaCtrl.isAdicionando">
-                        <h3>Novo jogador</h3>
-                        <div id="novo-jogador" class="row" >
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="novo-nome" class="sr-only">Nome</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span> </div>
-                                        <input id="novo-nome" class="form-control" placeholder="Nome" ng-model="mesaCtrl.novoJogador.nome">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="novo-saldo" class="sr-only">Saldo</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">R$</div>
-                                        <input id="novo-saldo" class="form-control" placeholder="Saldo" ng-model="mesaCtrl.novoJogador.saldo">
-                                    </div>
-                                </div>                                
-                            </div>
-                            <div class="col-sm-4">
-                                <button type="submit" class="btn btn-success btn-block">Adicionar</button>
-                            </div>
-                        </div>
-                    </form>
+                    
                 </fieldset>
             </div>    
+        </div>
+
+        <div id="alerts" ng-show="mesaCtrl.isAdicionandoAlerta">
+            <div id="alert-novo-jogador" class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" ng-click="mesaCtrl.isAdicionandoAlerta = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Atenção!</strong> Preencha os campos para adicionar um novo jogador.
+            </div>
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
