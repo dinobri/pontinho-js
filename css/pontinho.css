@@ -75,18 +75,20 @@ fieldset{
     animation: bounceOut 0.4s;
 }
 
-#formNovoJogador.ng-hide-remove, #btnNovoJogador.ng-hide-remove{
+#no-player-msg.ng-hide-remove,
+#formNovoJogador.ng-hide-remove, 
+#btnNovoJogador.ng-hide-remove{
     -webkit-animation: fadeIn 0.3s;
     -moz-animation: fadeIn 0.3s;
     -o-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
-#formNovoJogador.ng-hide-add, #btnNovoJogador.ng-hide-add{
+/*#formNovoJogador.ng-hide-add, #btnNovoJogador.ng-hide-add{
     -webkit-animation: fadeOut 0.3s;
     -moz-animation: fadeOut 0.3s;
     -o-animation: fadeOut 0.3s;
     animation: fadeOut 0.3s;
-}
+}*/
 
 #alerts{
     position: fixed;

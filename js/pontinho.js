@@ -26,7 +26,6 @@ function Jogador(nome, saldo){
 var jogadores = [];
 jogadores.push(new Jogador("Lorem Dolor", 2));
 jogadores.push(new Jogador("Ipsum Sit", 5));
-jogadores.push(new Jogador("Dolor Amet", 3));
 
 
 /* ========================================= CONTROLE ========================================= */
@@ -102,7 +101,7 @@ app.controller('MesaController', function(){
 			jogador.pontRodada = 0;
 		}
 
-		//verifica maior pontuação
+		//aplica maior pontuação aos estourados
 		for(var i = 0; i < this.jogadores.length; i++){
 			var jogador = jogadores[i];
 			if(jogador.isEstourado){
