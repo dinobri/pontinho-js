@@ -20,6 +20,34 @@ function Jogador(nome, saldo){
 			}
 		}
 	};
+
+	this.debitaSaldo = function(debito){
+		this.saldo -= debito;
+	};
+
+	this.creditaSaldo = function(credito){
+		this.saldo += credito
+	};
+}
+
+function Jogo(){
+	this.valorFicha = 0;		//em R$
+	this.valorLagrima = 0;		//em ficha
+	this.valorEstourada = 0;	//em ficha
+	this.bolao = 0;
+
+	this.isIniciado = false;
+
+	this.adicionaEstourada = function(){
+		this.bolao += this.valorEstourada;
+	};
+
+	this.lagrimaToDinheiro = function(){
+		return this.valorFicha * this.valorLagrima;
+	};
+	this.estouradaToDinheiro = function(){
+		return this.valorFicha * this.valorEstourada;
+	};
 }
 
 /* ========================================= UTIL ========================================= */
@@ -40,6 +68,9 @@ app.controller('MesaController', function(){
 	this.isAdicionandoAlerta = false;
 
 	this.isAlertando = false;
+
+
+	this.jogo = new Jogo();
 
 	this.alteraPontuacao = function(jogador, valor){
 		var pontuacaoFinal = jogador.pontRodada + valor;
@@ -83,6 +114,16 @@ app.controller('MesaController', function(){
 		}
 	};
 
+	this.iniciaJogo = function(){
+		if (!this.jogo.valorFicha || !this.jogo.valorLagrima || !this.jogo.valorEstourada) {
+			//ALERTA: preencher os campos (com dados válidos)
+			return false;
+		} else {
+			//desabilita campo de configuração do jogo
+			//mostra botão de reiniciar jogo
+		}
+	};
+
 	this.iniciaRodada = function(){
 		var maiorPontuacao = 0;
 
@@ -105,8 +146,11 @@ app.controller('MesaController', function(){
 		for(var i = 0; i < this.jogadores.length; i++){
 			var jogador = jogadores[i];
 			if(jogador.isEstourado){
+				jogador.debitaSaldo(this.jogo.estouradaToDinheiro());
 				jogador.pontGeral = maiorPontuacao;
 			}
+
+			jogador.debitaSaldo(this.jogo.lagrimaToDinheiro());
 		}
 	};
 });
