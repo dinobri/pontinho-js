@@ -25,12 +25,12 @@
         <script src="js/pontinho.js"></script>
     </head>
     <body ng-controller="MesaController as mesaCtrl">
-        <div class="container">
-            <div class="page-header">
-            <!-- <button class="pull-right btn btn-danger">?</button> -->
-                <h1>Pontinho-JS <small>(beta)</small></h1>
+        <header id="page-header">
+            <div class="container">
+                <h1>Pontinho-JS <small>(alpha)</small></h1>
             </div>
-
+        </header>
+        <div class="container">
             <section class="box">
                 <h2><span class="pe-7s-keypad pe-va">&nbsp;</span>Jogo</h2>
                 <div class="content">
@@ -40,30 +40,23 @@
                             <label for="ficha">Valor da ficha:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">R$</div>
-                                <input name="ficha" class="form-control input-lg" type="number" step="0.1" min="0">
+                                <input name="ficha" class="form-control input-lg" ng-model="mesaCtrl.jogo.valorFicha"  type="number" step="0.1" min="0">
                             </div>
                         </div>
 
                         <div class="form-group col-sm-3 col-xs-6">
                             <label for="lagrima">Lágrima (fichas):</label>
-                            <input name="lagrima" class="form-control input-lg" value="1" type="number" step="1" min="0">
+                            <input name="lagrima" class="form-control input-lg" ng-model="mesaCtrl.jogo.valorLagrima" type="number" step="1" min="0">
                         </div>
 
                         <div class="form-group col-sm-3 col-xs-6">
                             <label for="estourada">Estourada (fichas):</label>
-                            <input name="estourada" class="form-control input-lg" value="2" type="number" step="1" min="0">
+                            <input name="estourada" class="form-control input-lg" ng-model="mesaCtrl.jogo.valorEstourada" type="number" step="1" min="0">
                         </div>
 
                         <div class="form-group col-sm-3 col-xs-6">
                             <label for="bolao">Bolão (fichas):</label>
-                            <span style="font-size: 4em; vertical-align: top;">18</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-4 col-xs-12">
-                            <button type="button" class="btn btn-default btn-lg btn-block" ng-click="mesaCtrl.iniciaRodada()">
-                                <span class="pe-7s-refresh pe-lg pe-va">&nbsp;</span> Nova rodada
-                            </button>   
+                            <span style="font-size: 4em; vertical-align: top;">{{mesaCtrl.jogo.bolao}}</span>
                         </div>
                     </div>
                 </div>
@@ -133,14 +126,17 @@
                     <hr/>
                     <div class="row">
                         <div class="col-sm-4">
-                            <button id="btnNovoJogador" type="button" class="btn btn-black btn-lg btn-block" 
+                            <button id="btnNovoJogador" type="button" class="btn btn-default btn-lg btn-block" 
                                 ng-click="mesaCtrl.habilitaFormNovoJogador()"
                                 ng-hide="mesaCtrl.isAdicionando">
-                                <!-- <span class="glyphicon glyphicon-plus"></span> 
-                                <span class="glyphicon glyphicon-user"></span>  -->
                                 <span class="pe-7s-add-user pe-lg pe-va">&nbsp;</span> 
                                 Adicionar jogador
                             </button>
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button type="button" class="btn btn-red btn-lg btn-block" ng-click="mesaCtrl.iniciaRodada()">
+                                <span class="pe-7s-refresh pe-lg pe-va">&nbsp;</span> Nova rodada
+                            </button>   
                         </div>
                     </div>
                     <div>
@@ -166,10 +162,10 @@
                                     </div>                                
                                 </div>
                                 <div class="col-xs-6 col-sm-2">
-                                    <button type="button" class="btn btn-danger btn-block" ng-click="mesaCtrl.cancelaAdicao()"><span class="pe-7s-close-circle pe-lg pe-va">&nbsp;</span>Cancelar</button>
+                                    <button type="button" class="btn btn-default btn-block" ng-click="mesaCtrl.cancelaAdicao()"><span class="pe-7s-close-circle pe-lg pe-va">&nbsp;</span>Cancelar</button>
                                 </div>
                                 <div class="col-xs-6 col-sm-2">
-                                    <button type="submit" class="btn btn-black btn-block"><span class="pe-7s-check pe-lg pe-va">&nbsp;</span>Adicionar</button>
+                                    <button type="submit" class="btn btn-red btn-block"><span class="pe-7s-check pe-lg pe-va">&nbsp;</span>Adicionar</button>
                                 </div>
                             </div>
                         </form>
@@ -187,7 +183,11 @@
                 <strong>Atenção!</strong> Preencha os campos para adicionar um novo jogador.
             </div>
         </div>
+        
 
+        <footer id="page-footer">
+            
+        </footer>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

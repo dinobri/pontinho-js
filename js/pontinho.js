@@ -26,14 +26,14 @@ function Jogador(nome, saldo){
 	};
 
 	this.creditaSaldo = function(credito){
-		this.saldo += credito
+		this.saldo += credito;
 	};
 }
 
 function Jogo(){
-	this.valorFicha = 0;		//em R$
-	this.valorLagrima = 0;		//em ficha
-	this.valorEstourada = 0;	//em ficha
+	this.valorFicha = 0.1;		//em R$
+	this.valorLagrima = 1;		//em ficha
+	this.valorEstourada = 2;	//em ficha
 	this.bolao = 0;
 
 	this.isIniciado = false;
@@ -72,6 +72,7 @@ app.controller('MesaController', function(){
 
 	this.jogo = new Jogo();
 
+	// Impede que a pontuação seja alterada para menos de 0 ou mais que 100
 	this.alteraPontuacao = function(jogador, valor){
 		var pontuacaoFinal = jogador.pontRodada + valor;
 		if(pontuacaoFinal > 100 || pontuacaoFinal < 0){
@@ -116,41 +117,75 @@ app.controller('MesaController', function(){
 
 	this.iniciaJogo = function(){
 		if (!this.jogo.valorFicha || !this.jogo.valorLagrima || !this.jogo.valorEstourada) {
-			//ALERTA: preencher os campos (com dados válidos)
+			//TODO alerta: preencher os campos (com dados válidos)
 			return false;
 		} else {
-			//desabilita campo de configuração do jogo
-			//mostra botão de reiniciar jogo
+			// TODO desabilita campo de configuração do jogo
+			// TODO mostra botão de reiniciar jogo
 		}
 	};
 
 	this.iniciaRodada = function(){
-		var maiorPontuacao = 0;
+		var vencedor = verificaVencedor(this.jogadores);
+		vencedor.creditaSaldo(this.jogo.lagrimaToDinheiro * this.jogadores.length);
+		
+		if(!vencedor){
+			return false;
+		} else {			
+			// Soma pontuação da rodada a pontGeral	de cada jogador
+			var maiorPontuacao = 0;
 
-		// Soma pontuação da rodada a pontGeral	
-		for(var i = 0; i < this.jogadores.length; i++){
-			var jogador = jogadores[i];
-			var pontuacaoFinal = jogador.pontRodada + jogador.pontGeral;
-			if(pontuacaoFinal >= 100){
-				jogador.isEstourado = true;
-			} else {
-				jogador.pontGeral = pontuacaoFinal;
-				
-				//verifica maior pontuação
-				maiorPontuacao = (jogador.pontGeral > maiorPontuacao) ? jogador.pontGeral : maiorPontuacao;
+			for(var i = 0; i < this.jogadores.length; i++){
+				var jogador = jogadores[i];
+				var pontuacaoFinal = jogador.pontRodada + jogador.pontGeral;
+				if(pontuacaoFinal >= 100){
+					jogador.isEstourado = true;
+				} else {
+					jogador.pontGeral = pontuacaoFinal;
+					
+					//verifica maior pontuação
+					maiorPontuacao = (jogador.pontGeral > maiorPontuacao) ? jogador.pontGeral : maiorPontuacao;
+				}
+				jogador.pontRodada = 0;
 			}
-			jogador.pontRodada = 0;
+
+			//aplica maior pontuação aos estourados
+			for(var i = 0; i < this.jogadores.length; i++){
+				var jogador = jogadores[i];
+				if(jogador.isEstourado){
+					jogador.debitaSaldo(this.jogo.estouradaToDinheiro());
+					this.jogo.adicionaEstourada();
+					jogador.pontGeral = maiorPontuacao;
+					jogador.isEstourado = false;
+				}
+
+				jogador.debitaSaldo(this.jogo.lagrimaToDinheiro());
+			}
+		}		
+	};
+
+	// Verifica se houve um (e apenas um) vencedor
+	var verificaVencedor = function(jogadores){
+		var vencedor = 0;
+		
+		for(var i = 0; i < jogadores.length; i++){
+			var jogador = jogadores[i];
+			
+			if(jogador.pontRodada === 0){
+				if(!vencedor){
+					vencedor = jogador;
+				} else {
+					// TODO alerta
+					return false;
+				}
+			}
 		}
 
-		//aplica maior pontuação aos estourados
-		for(var i = 0; i < this.jogadores.length; i++){
-			var jogador = jogadores[i];
-			if(jogador.isEstourado){
-				jogador.debitaSaldo(this.jogo.estouradaToDinheiro());
-				jogador.pontGeral = maiorPontuacao;
-			}
-
-			jogador.debitaSaldo(this.jogo.lagrimaToDinheiro());
+		if(vencedor === 0){
+			// TODO alerta
+			return false;
+		} else {
+			return vencedor;
 		}
 	};
 });
