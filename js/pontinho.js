@@ -20,6 +20,11 @@ function Jogador(nome, saldo){
 			}
 		}
 	};
+	this.reiniciaPontuacao = function(){
+		this.pontRodada = 0;
+		this.pontGeral = 0;
+		this.isEstourado = false;
+	};
 
 	this.debitaSaldo = function(debito){
 		this.saldo -= debito;
@@ -54,12 +59,14 @@ function Jogo(){
 var jogadores = [];
 jogadores.push(new Jogador("Lorem Dolor", 2));
 jogadores.push(new Jogador("Ipsum Sit", 5));
+jogadores.push(new Jogador("Amet Lorem", 3));
+jogadores.push(new Jogador("Painho Lorem", 4));
 
 
 /* ========================================= CONTROLE ========================================= */
 var app = angular.module('pontinho', ['ngAnimate']);
 
-app.controller('MesaController', function(){
+app.controller('MesaController', function($timeout){
 	this.jogadores = jogadores;
 
 	this.novoJogador = new Jogador();
@@ -71,6 +78,7 @@ app.controller('MesaController', function(){
 
 
 	this.jogo = new Jogo();
+	this.minJogadores = 4;
 
 	// Impede que a pontuação seja alterada para menos de 0 ou mais que 100
 	this.alteraPontuacao = function(jogador, valor){
@@ -86,9 +94,10 @@ app.controller('MesaController', function(){
 	this.habilitaFormNovoJogador = function(){
 		console.log("Teste");
 		this.isAdicionando = true;
-		var input = document.getElementById("novo-nome");
-		console.log(input);
-		input.focus();
+
+		$timeout(function(){
+			document.getElementById("novo-nome").focus();
+		}, 100);
 	}
 
 	this.adicionaJogador = function(){
@@ -115,43 +124,69 @@ app.controller('MesaController', function(){
 		}
 	};
 
+	this.encerraJogo = function(){
+		this.jogo.bolao = 0;
+
+		for(var i = 0; i < this.jogadores.length; i++){
+			var jogador = this.jogadores[i];
+			jogador.reiniciaPontuacao();
+		}
+		
+		this.jogo.isIniciado = false;
+	}
+
 	this.iniciaJogo = function(){
-		if (!this.jogo.valorFicha || !this.jogo.valorLagrima || !this.jogo.valorEstourada) {
+		if (!this.jogo.valorFicha || 
+			!this.jogo.valorLagrima || 
+			!this.jogo.valorEstourada ||
+			this.jogadores.length < this.minJogadores) {
 			//TODO alerta: preencher os campos (com dados válidos)
 			return false;
 		} else {
-			// TODO desabilita campo de configuração do jogo
-			// TODO mostra botão de reiniciar jogo
+			this.jogo.isIniciado = true;
+			for(var i = 0; i < this.jogadores.length; i++){
+				var jogador = this.jogadores[i];
+				jogador.debitaSaldo(this.jogo.lagrimaToDinheiro());				
+				jogador.debitaSaldo(this.jogo.estouradaToDinheiro());				
+			}
 		}
 	};
 
 	this.iniciaRodada = function(){
 		var vencedor = verificaVencedor(this.jogadores);
-		vencedor.creditaSaldo(this.jogo.lagrimaToDinheiro * this.jogadores.length);
+		vencedor.creditaSaldo(this.jogo.lagrimaToDinheiro() * this.jogadores.length);
 		
 		if(!vencedor){
 			return false;
 		} else {			
 			// Soma pontuação da rodada a pontGeral	de cada jogador
 			var maiorPontuacao = 0;
-
+			var estourados = 0;
 			for(var i = 0; i < this.jogadores.length; i++){
-				var jogador = jogadores[i];
+				var jogador = this.jogadores[i];
 				var pontuacaoFinal = jogador.pontRodada + jogador.pontGeral;
 				if(pontuacaoFinal >= 100){
 					jogador.isEstourado = true;
+					estourados++;
 				} else {
 					jogador.pontGeral = pontuacaoFinal;
 					
 					//verifica maior pontuação
 					maiorPontuacao = (jogador.pontGeral > maiorPontuacao) ? jogador.pontGeral : maiorPontuacao;
 				}
+
+				if(estourados === this.jogadores.length-1){
+					vencedor.creditaSaldo(this.jogo.estouradaToDinheiro() * this.jogo.bolao);
+					// TODO modal do vencedor
+					return encerraJogo();
+				}
+
 				jogador.pontRodada = 0;
 			}
 
 			//aplica maior pontuação aos estourados
 			for(var i = 0; i < this.jogadores.length; i++){
-				var jogador = jogadores[i];
+				var jogador = this.jogadores[i];
 				if(jogador.isEstourado){
 					jogador.debitaSaldo(this.jogo.estouradaToDinheiro());
 					this.jogo.adicionaEstourada();
@@ -169,7 +204,7 @@ app.controller('MesaController', function(){
 		var vencedor = 0;
 		
 		for(var i = 0; i < jogadores.length; i++){
-			var jogador = jogadores[i];
+			var jogador = this.jogadores[i];
 			
 			if(jogador.pontRodada === 0){
 				if(!vencedor){

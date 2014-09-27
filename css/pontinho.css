@@ -78,6 +78,9 @@ body{
 .player p.nome{
 
 }
+.player .remove-button{
+    margin-top: 14px;
+}
 
 .pont-rodada{
     display: block;
