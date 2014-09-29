@@ -66,7 +66,7 @@ jogadores.push(new Jogador("Painho Lorem", 4));
 /* ========================================= CONTROLE ========================================= */
 var app = angular.module('pontinho', ['ngAnimate']);
 
-app.controller('MesaController', function($timeout){
+app.controller('MesaController', function($scope, $timeout){
 	this.jogadores = jogadores;
 
 	this.novoJogador = new Jogador();
@@ -74,7 +74,10 @@ app.controller('MesaController', function($timeout){
 	this.isAdicionando = false;
 	this.isAdicionandoAlerta = false;
 
+	// ALERTAS
 	this.isAlertando = false;
+	this.tituloAlerta = "";
+	this.msgAlerta = "";
 
 
 	this.jogo = new Jogo();
@@ -92,7 +95,6 @@ app.controller('MesaController', function($timeout){
 	};
 
 	this.habilitaFormNovoJogador = function(){
-		console.log("Teste");
 		this.isAdicionando = true;
 
 		$timeout(function(){
@@ -106,7 +108,8 @@ app.controller('MesaController', function($timeout){
 			this.novoJogador = new Jogador();
 			this.isAdicionando = false;			
 		} else {
-			this.isAdicionandoAlerta = true;
+			// this.isAdicionandoAlerta = true;
+			this.mostraAlerta("Atenção!", "Preencha os campos para adicionar um novo jogador.");
 			this.cancelaAdicao();
 		}
 	};
@@ -137,28 +140,30 @@ app.controller('MesaController', function($timeout){
 
 	this.iniciaJogo = function(){
 		if (!this.jogo.valorFicha || 
-			!this.jogo.valorLagrima || 
-			!this.jogo.valorEstourada ||
-			this.jogadores.length < this.minJogadores) {
-			//TODO alerta: preencher os campos (com dados válidos)
+		!this.jogo.valorLagrima || 
+		!this.jogo.valorEstourada ||
+		this.jogadores.length < this.minJogadores) {
+
+			this.mostraAlerta("Atenção!", "Preencha os dados do jogo corretamente para dar início ao mesmo.");
 			return false;
 		} else {
 			this.jogo.isIniciado = true;
 			for(var i = 0; i < this.jogadores.length; i++){
 				var jogador = this.jogadores[i];
 				jogador.debitaSaldo(this.jogo.lagrimaToDinheiro());				
-				jogador.debitaSaldo(this.jogo.estouradaToDinheiro());				
+				jogador.debitaSaldo(this.jogo.estouradaToDinheiro());
+				this.jogo.bolao += this.jogo.valorEstourada;			
 			}
 		}
 	};
 
 	this.iniciaRodada = function(){
-		var vencedor = verificaVencedor(this.jogadores);
-		vencedor.creditaSaldo(this.jogo.lagrimaToDinheiro() * this.jogadores.length);
+		var vencedor = this.verificaVencedor(this.jogadores);
 		
 		if(!vencedor){
 			return false;
 		} else {			
+			vencedor.creditaSaldo(this.jogo.lagrimaToDinheiro() * this.jogadores.length);
 			// Soma pontuação da rodada a pontGeral	de cada jogador
 			var maiorPontuacao = 0;
 			var estourados = 0;
@@ -178,7 +183,7 @@ app.controller('MesaController', function($timeout){
 				if(estourados === this.jogadores.length-1){
 					vencedor.creditaSaldo(this.jogo.estouradaToDinheiro() * this.jogo.bolao);
 					// TODO modal do vencedor
-					return encerraJogo();
+					return this.encerraJogo();
 				}
 
 				jogador.pontRodada = 0;
@@ -200,7 +205,7 @@ app.controller('MesaController', function($timeout){
 	};
 
 	// Verifica se houve um (e apenas um) vencedor
-	var verificaVencedor = function(jogadores){
+	this.verificaVencedor = function(jogadores){
 		var vencedor = 0;
 		
 		for(var i = 0; i < jogadores.length; i++){
@@ -211,6 +216,8 @@ app.controller('MesaController', function($timeout){
 					vencedor = jogador;
 				} else {
 					// TODO alerta
+					this.mostraAlerta("Quem bateu?", " Há mais de uma pessoa com 0 pontos.");
+
 					return false;
 				}
 			}
@@ -218,9 +225,20 @@ app.controller('MesaController', function($timeout){
 
 		if(vencedor === 0){
 			// TODO alerta
+			this.mostraAlerta("Quem bateu?", "Não há ninguem com 0 pontos.");
 			return false;
 		} else {
 			return vencedor;
 		}
+	};
+
+	this.mostraAlerta = function(titulo, mensagem){
+		this.msgAlerta = mensagem;
+		this.tituloAlerta = titulo;
+		this.isAlertando = true;
+	};
+
+	this.escondeAlerta = function(){
+		this.isAlertando = false;
 	};
 });
